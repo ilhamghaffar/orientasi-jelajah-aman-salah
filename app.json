@@ -7,17 +7,9 @@
     "icon": "./assets/images/icon.png",
     "scheme": "orientasijelajahaman",
     "userInterfaceStyle": "automatic",
-<<<<<<< HEAD
     "ios": {
       "icon": "./assets/expo.icon"
     },
-=======
-
-    "ios": {
-      "icon": "./assets/expo.icon"
-    },
-
->>>>>>> 5fff38cefc0fa94e8da57b320deecdc7452ed64f
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -27,18 +19,10 @@
       },
       "predictiveBackGestureEnabled": false
     },
-<<<<<<< HEAD
-=======
-
->>>>>>> 5fff38cefc0fa94e8da57b320deecdc7452ed64f
     "web": {
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-<<<<<<< HEAD
-=======
-
->>>>>>> 5fff38cefc0fa94e8da57b320deecdc7452ed64f
     "plugins": [
       "expo-router",
       [
@@ -54,17 +38,11 @@
         {
           "locationWhenInUsePermission": "Jelajah Aman menggunakan lokasi Anda untuk menampilkan cuaca di kota terdekat."
         }
-<<<<<<< HEAD
       ],
       "expo-sqlite",
       "expo-image",
       "expo-web-browser"
     ],
-=======
-      ]
-    ],
-
->>>>>>> 5fff38cefc0fa94e8da57b320deecdc7452ed64f
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true

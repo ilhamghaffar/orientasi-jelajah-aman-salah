@@ -1,13 +1,11 @@
 // src/app/tambah-favorit.tsx
-<<<<<<< HEAD
-import { View, Text, Button, Alert } from "react-native";
-=======
-import { View, Text, Button } from "react-native";
->>>>>>> 5fff38cefc0fa94e8da57b320deecdc7452ed64f
 import { router, useLocalSearchParams } from "expo-router";
+import { Alert, Button, Text, View } from "react-native";
+import { useAppTheme } from "../providers/theme-provider";
 import { tambahFavorit } from "../services/favoritStorage";
 
 export default function ModalTambahFavorit() {
+  const { colors } = useAppTheme();
   const { id, nama, lat, lon } = useLocalSearchParams<{
     id: string;
     nama: string;
@@ -16,23 +14,18 @@ export default function ModalTambahFavorit() {
   }>();
 
   async function simpan() {
-<<<<<<< HEAD
-    // 1. Validasi sederhana: pastikan parameter tidak kosong
     if (!id || !nama || !lat || !lon) {
       Alert.alert("Error", "Data kota tidak lengkap atau tidak valid.");
       return;
     }
 
     try {
-      // 2. Eksekusi penyimpanan
       await tambahFavorit({
         id: Number(id),
-        nama: nama,
+        nama,
         latitude: Number(lat),
         longitude: Number(lon),
       });
-      
-      // 3. Kembali ke layar sebelumnya jika berhasil
       router.back();
     } catch (error) {
       console.error("Terjadi kesalahan saat menyimpan:", error);
@@ -41,31 +34,27 @@ export default function ModalTambahFavorit() {
   }
 
   return (
-    <View style={{ padding: 24, gap: 16, justifyContent: "center" }}>
-      <Text style={{ fontSize: 16, textAlign: "center" }}>
-        Tambahkan <Text style={{ fontWeight: "bold" }}>{nama}</Text> ke daftar favorit?
+    <View
+      style={{
+        flex: 1,
+        padding: 24,
+        gap: 16,
+        justifyContent: "center",
+        backgroundColor: colors.background,
+      }}
+    >
+      <Text style={{ fontSize: 16, textAlign: "center", color: colors.text }}>
+        Tambahkan <Text style={{ fontWeight: "bold" }}>{nama}</Text> ke daftar
+        favorit?
       </Text>
-      
       <View style={{ gap: 8 }}>
-        <Button title="Simpan" onPress={simpan} />
-        {/* Tambahan tombol batal agar user bisa keluar dari modal tanpa menyimpan */}
-        <Button title="Batal" color="red" onPress={() => router.back()} />
+        <Button title="Simpan" color={colors.accent} onPress={simpan} />
+        <Button
+          title="Batal"
+          color={colors.danger}
+          onPress={() => router.back()}
+        />
       </View>
-=======
-    await tambahFavorit({
-      id: Number(id),
-      nama,
-      latitude: Number(lat),
-      longitude: Number(lon),
-    });
-    router.back();
-  }
-
-  return (
-    <View style={{ padding: 16, gap: 16 }}>
-      <Text>Tambahkan {nama} ke daftar favorit?</Text>
-      <Button title="Simpan" onPress={simpan} />
->>>>>>> 5fff38cefc0fa94e8da57b320deecdc7452ed64f
     </View>
   );
 }

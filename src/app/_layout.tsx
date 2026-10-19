@@ -1,43 +1,46 @@
-<<<<<<< HEAD
 // app/_layout.tsx
-
-=======
-// app/_layout.tsx (root layout)
->>>>>>> 5fff38cefc0fa94e8da57b320deecdc7452ed64f
 import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+
+import { ThemeProvider, useAppTheme } from "../providers/theme-provider";
 
 export default function RootLayout() {
   return (
-    <Stack>
-<<<<<<< HEAD
-      <Stack.Screen
-        name="(tabs)"
-        options={{ headerShown: false }}
-      />
+    <ThemeProvider>
+      <RootNavigator />
+    </ThemeProvider>
+  );
+}
 
-      <Stack.Screen
-        name="detail/[kota]"
-        options={{ title: "Detail Cuaca" }}
-      />
+function RootNavigator() {
+  const { colors, theme } = useAppTheme();
 
-      <Stack.Screen
-        name="tambah-favorit"
-        options={{
-          presentation: "modal",
-          title: "Tambah Favorit",
+  return (
+    <>
+      <StatusBar style={theme === "dark" ? "light" : "dark"} />
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: colors.background },
+          headerTintColor: colors.text,
+          headerTitleStyle: { color: colors.text },
+          contentStyle: { backgroundColor: colors.background },
         }}
-      />
-    </Stack>
+      >
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+
+        <Stack.Screen
+          name="detail/[kota]"
+          options={{ title: "Detail Cuaca" }}
+        />
+
+        <Stack.Screen
+          name="tambah-favorit"
+          options={{
+            presentation: "modal",
+            title: "Tambah Favorit",
+          }}
+        />
+      </Stack>
+    </>
   );
 }
-=======
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="detail/[kota]" options={{ title: "Detail Cuaca" }} />
-      <Stack.Screen
-        name="tambah-favorit"
-        options={{ presentation: "modal", title: "Tambah Favorit" }}
-      />
-    </Stack>
-  );
-}
->>>>>>> 5fff38cefc0fa94e8da57b320deecdc7452ed64f

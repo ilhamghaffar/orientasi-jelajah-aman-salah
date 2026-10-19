@@ -1,10 +1,10 @@
 import { ambilDatabase } from "../db/database";
-import type { DataCuacaLengkap, DataKualitasUdara } from "../types/weather";
 import type {
-  DataTersimpan,
-  KotaUntukCache,
-  RingkasanKotaTersimpan,
+    DataTersimpan,
+    KotaUntukCache,
+    RingkasanKotaTersimpan,
 } from "../types/cache";
+import type { DataCuacaLengkap, DataKualitasUdara } from "../types/weather";
 
 interface BarisCache {
   kunci: string;
@@ -27,7 +27,7 @@ export function buatKunci(latitude: number, longitude: number): string {
 export async function simpanCache(
   kota: KotaUntukCache,
   cuaca: DataCuacaLengkap,
-  kualitasUdara: DataKualitasUdara
+  kualitasUdara: DataKualitasUdara,
 ): Promise<void> {
   const db = await ambilDatabase();
 
@@ -44,18 +44,18 @@ export async function simpanCache(
       JSON.stringify(cuaca),
       JSON.stringify(kualitasUdara),
       Date.now(),
-    ]
+    ],
   );
 }
 
 export async function ambilCache(
   latitude: number,
-  longitude: number
+  longitude: number,
 ): Promise<DataTersimpan | null> {
   const db = await ambilDatabase();
   const baris = await db.getFirstAsync<BarisCache>(
     "SELECT * FROM cache_cuaca WHERE kunci = ?",
-    [buatKunci(latitude, longitude)]
+    [buatKunci(latitude, longitude)],
   );
 
   if (!baris) return null;
@@ -96,4 +96,9 @@ export async function bersihkanCacheLama(batasUmurMs: number): Promise<void> {
 export async function hapusSemuaCache(): Promise<void> {
   const db = await ambilDatabase();
   await db.runAsync("DELETE FROM cache_cuaca");
+}
+
+export async function hapusCacheKota(kunci: string): Promise<void> {
+  const db = await ambilDatabase();
+  await db.runAsync("DELETE FROM cache_cuaca WHERE kunci = ?", [kunci]);
 }

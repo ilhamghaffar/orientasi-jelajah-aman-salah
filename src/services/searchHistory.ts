@@ -2,6 +2,7 @@ import { Platform } from "react-native";
 import type { HasilGeocoding } from "../types/geocoding";
 
 const HISTORY_KEY = "jelajah-aman:search-history";
+const BATAS_RIWAYAT = 10;
 
 export async function bacaRiwayatKota(): Promise<HasilGeocoding[]> {
   try {
@@ -23,7 +24,7 @@ export async function simpanRiwayatKota(kota: HasilGeocoding): Promise<void> {
   const diperbarui = [
     kota,
     ...riwayat.filter((item) => item.id !== kota.id),
-  ].slice(0, 20);
+  ].slice(0, BATAS_RIWAYAT);
   const raw = JSON.stringify(diperbarui);
 
   try {
@@ -50,6 +51,6 @@ async function writeNativeValue(value: string): Promise<void> {
   if (!FileSystem.documentDirectory) return;
   await FileSystem.writeAsStringAsync(
     `${FileSystem.documentDirectory}${HISTORY_KEY}.json`,
-    value
+    value,
   );
 }
